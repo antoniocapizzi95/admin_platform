@@ -8,6 +8,7 @@ var adminplat = angular.module('myApp', [
   'myApp.version',
   'myApp.users',
   'myApp.surveys',
+    'myApp.settings',
   'ngMaterial'
 ])
 .config(['$routeProvider', function ($routeProvider) {
@@ -22,13 +23,13 @@ var adminplat = angular.module('myApp', [
         controller: 'surveysCtrl',
         controllerAs: 'Surveys'
       })
-      /*.when('/signup', {
-        templateUrl: "app/signup/signup.html",
-        controller: 'SignupCtrl',
-        controllerAs: 'Signup'
+      .when('/settings', {
+        templateUrl: "settings/settings.html",
+        controller: 'settingsCtrl',
+        controllerAs: 'Settings'
       })
 
-      .when('/import', {
+      /*.when('/import', {
         templateUrl: "app/users/import.html",
         controller: 'UsersImportCtrl',
         controllerAs: 'Import'
