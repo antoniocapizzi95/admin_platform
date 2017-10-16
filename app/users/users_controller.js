@@ -5,24 +5,26 @@
 
 (function () {
 
-    angular.module('myApp.users', [])
+    angular.module('myApp.users', ['ngRoute'])
         .controller('usersCtrl', usersCtrl);
     usersCtrl.$inject = ['$scope','$http','$route'];
 
     function usersCtrl($scope,$http,$route) {
 
-        $scope.users = [];
-        $scope.addUserButtonShow = true;
-        $scope.newUsername;
-        $scope.newPassword;
+        var vm = this;
+
+        vm.users = [];
+        vm.addUserButtonShow = true;
+        vm.newUsername;
+        vm.newPassword;
         $http.get("http://localhost/mydb/getUsers.php")
             .then(function (response) {
                 var input = JSON.parse(response.data);
-                $scope.users = input.records;
+                vm.users = input.records;
             });
 
-        $scope.addUser = function () {
-            var param = JSON.stringify({username:$scope.newUsername,password:$scope.newPassword});
+        vm.addUser = function () {
+            var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword});
 
             $http({
                 method: 'POST',
@@ -31,12 +33,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
-                    $scope.addUserButtonShow = true;
+                    vm.addUserButtonShow = true;
                     $route.reload();
                 });
         }
 
-        $scope.deleteUser = function (id) {
+        vm.deleteUser = function (id) {
             var param = JSON.stringify({id:id});
 
             $http({

@@ -1,22 +1,22 @@
 <h2 class="md-diplay-1" layout-padding>Users</h2>
 <div layout="column" layout-padding>
     <div layout="row">
-        <md-button ng-click="addUserButtonShow = false" ng-show="addUserButtonShow">Add User</md-button>
-        <div layout="row" ng-hide="addUserButtonShow">
+        <md-button ng-click="Users.addUserButtonShow = false" ng-show="Users.addUserButtonShow">Add User</md-button>
+        <div layout="row" ng-hide="Users.addUserButtonShow">
             <md-input-container>
                 <label>Username</label>
-                <input name="username" ng-model="newUsername" required >
+                <input name="username" ng-model="Users.newUsername" required >
             </md-input-container>
             <md-input-container>
                 <label>Password</label>
-                <input name="password" ng-model="newPassword" required>
+                <input name="password" ng-model="Users.newPassword" required>
             </md-input-container>
-            <md-button ng-click="addUser()">Add</md-button>
-            <md-button ng-click="addUserButtonShow=true">Cancel</md-button>
+            <md-button ng-click="Users.addUser()">Add</md-button>
+            <md-button ng-click="Users.addUserButtonShow=true">Cancel</md-button>
         </div>
     </div>
 
-    <md-card layout="row" ng-repeat="usr in users">
+    <md-card layout="row" ng-repeat="usr in Users.users">
         <h3 class="md-subhead">{{usr.username}}</h3>
         <md-button ng-click="deleteUser(usr.ID)">Delete User</md-button>
     </md-card>
