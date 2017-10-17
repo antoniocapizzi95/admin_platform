@@ -7,13 +7,19 @@
 
     angular.module('myApp.surveys', [])
         .controller('surveysCtrl', surveysCtrl);
-    surveysCtrl.$inject = ['$scope'];
+    surveysCtrl.$inject = ['$scope','$http'];
 
-    function surveysCtrl($scope) {
+    function surveysCtrl($scope,$http) {
 
+        var vm= this;
 
+        vm.surveys = [];
 
-
+        $http.get("http://localhost/mydb/getSurveys.php")
+            .then(function (response) {
+                var input = JSON.parse(response.data);
+                vm.surveys = input.records;
+            });
 
 
 

@@ -8,6 +8,7 @@ var adminplat = angular.module('myApp', [
   'myApp.version',
   'myApp.users',
   'myApp.surveys',
+    'myApp.newSurvey',
     'myApp.settings',
   'ngMaterial'
 ])
@@ -29,11 +30,11 @@ var adminplat = angular.module('myApp', [
         controllerAs: 'Settings'
       })
 
-      /*.when('/import', {
-        templateUrl: "app/users/import.html",
-        controller: 'UsersImportCtrl',
-        controllerAs: 'Import'
-      })*/
+      .when('/newSurvey', {
+        templateUrl: "surveys/newSurvey.html",
+        controller: 'newSurveyCtrl',
+        controllerAs: 'NewSurvey'
+      })
 
 }])
 

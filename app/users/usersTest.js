@@ -5,7 +5,7 @@
 describe('testModule module', function(){
     beforeEach(module('myApp.users'));
 
-    describe('test controller', function(){
+    describe('test users_controller', function(){
         var scope, testCont, route, http;
 
         beforeEach(inject(function($rootScope,$http, $route, $controller) {
@@ -16,7 +16,8 @@ describe('testModule module', function(){
 
         }));
 
-        it('should uppercase correctly', function(){
+        it('addUser function is defined', function(){
+
             expect(testCont.addUser).toBeDefined();
 
         });

@@ -1,0 +1,30 @@
+<h2 class="md-diplay-1" layout-padding>Create new Survey</h2>
+<div layout="column" layout-padding>
+    <div layout="column">
+        <md-input-container>
+            <label>Survey Name</label>
+            <input name="answer" ng-model="NewSurvey.surveyName">
+        </md-input-container>
+        <md-input-container>
+            <label>Description</label>
+            <input name="answer" ng-model="NewSurvey.description">
+        </md-input-container>
+    </div>
+    <md-button ng-click="NewSurvey.newAnswerButtonFlag = false" ng-show="NewSurvey.newAnswerButtonFlag">
+        Add an answer
+    </md-button>
+    <div layout="row" ng-hide="NewSurvey.newAnswerButtonFlag">
+        <md-input-container>
+            <label>Answer</label>
+            <input name="answer" ng-model="NewSurvey.newAnswer">
+        </md-input-container>
+        <md-button ng-click="NewSurvey.addAnswer()">Add</md-button>
+    </div>
+    <div ng-repeat="ans in NewSurvey.answers">
+        <md-card layout="row">
+            {{$index + 1}} {{ans}}
+            <md-button ng-click="NewSurvey.deleteAnswer($index)">Delete</md-button>
+        </md-card>
+    </div>
+    <md-button ng-click="NewSurvey.confirm()">Confirm</md-button>
+</div>
