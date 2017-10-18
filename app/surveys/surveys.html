@@ -4,7 +4,15 @@
         New Survey
     </md-button>
     <div layout="column" >
-        <md-card ng-repeat="surv in Surveys.surveys">{{surv.name}}</md-card>
+        <md-card ng-repeat="surv in Surveys.surveys">
+            {{surv.object.name}}
+            <md-button ng-click="Surveys.deleteSurvey(surv.ID)">
+                Delete
+            </md-button>
+            <md-button ng-click="Surveys.assignUsers($event,surv.object.name)">
+                Assign Users
+            </md-button>
+        </md-card>
     </div>
 
 </div>

@@ -7,23 +7,23 @@
         </md-input-container>
         <md-input-container>
             <label>Description</label>
-            <input name="answer" ng-model="NewSurvey.description">
+            <input name="description" ng-model="NewSurvey.description">
         </md-input-container>
     </div>
-    <md-button ng-click="NewSurvey.newAnswerButtonFlag = false" ng-show="NewSurvey.newAnswerButtonFlag">
-        Add an answer
+    <md-button ng-click="NewSurvey.newQuestionButtonFlag = false" ng-show="NewSurvey.newQuestionButtonFlag">
+        Add a question
     </md-button>
-    <div layout="row" ng-hide="NewSurvey.newAnswerButtonFlag">
+    <div layout="row" ng-hide="NewSurvey.newQuestionButtonFlag">
         <md-input-container>
-            <label>Answer</label>
-            <input name="answer" ng-model="NewSurvey.newAnswer">
+            <label>Question</label>
+            <input name="Question" ng-model="NewSurvey.newQuestion">
         </md-input-container>
-        <md-button ng-click="NewSurvey.addAnswer()">Add</md-button>
+        <md-button ng-click="NewSurvey.addQuestion()">Add</md-button>
     </div>
-    <div ng-repeat="ans in NewSurvey.answers">
+    <div ng-repeat="que in NewSurvey.questions">
         <md-card layout="row">
-            {{$index + 1}} {{ans}}
-            <md-button ng-click="NewSurvey.deleteAnswer($index)">Delete</md-button>
+            {{$index + 1}} {{que}}
+            <md-button ng-click="NewSurvey.deleteQUestion($index)">Delete</md-button>
         </md-card>
     </div>
     <md-button ng-click="NewSurvey.confirm()">Confirm</md-button>

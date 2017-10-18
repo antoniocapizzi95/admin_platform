@@ -11,24 +11,24 @@
 
     function newSurveyCtrl($scope,$location,$http) {
         var vm = this;
-        vm.newAnswerButtonFlag = true;
+        vm.newQuestionButtonFlag = true;
         vm.surveyName = "";
         vm.description = "";
-        vm.newAnswer = "";
-        vm.answers = [];
-        vm.addAnswer = function() {
-            vm.answers.push(vm.newAnswer);
-            vm.newAnswer = "";
-            vm.newAnswerButtonFlag = true;
+        vm.newQuestions = "";
+        vm.questions = [];
+        vm.addQuestion = function() {
+            vm.questions.push(vm.newQuestions);
+            vm.newQuestions = "";
+            vm.newQuestionButtonFlag = true;
         }
 
-        vm.deleteAnswer = function (index) {
-            vm.answers.splice(index, 1);
+        vm.deleteQuestions = function (index) {
+            vm.questions.splice(index, 1);
         }
 
         vm.confirm = function () {
-            if(vm.answers.length>0 && vm.surveyName != "" && vm.description !="") {
-                var obj = {name: vm.surveyName, description: vm.description, answers: vm.answers};
+            if(vm.questions.length>0 && vm.surveyName != "" && vm.description !="") {
+                var obj = {name: vm.surveyName, description: vm.description, questions: vm.questions};
                 var param = JSON.stringify(obj);
 
                 $http({
