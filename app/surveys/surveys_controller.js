@@ -55,33 +55,89 @@
                 });
         };
 
-        function assignUsersDialogController($scope, $mdDialog) {
+        function assignUsersDialogController($scope, $mdDialog, $route) {
             $scope.users = [];
             $scope.assignedUsers = [];
-            $http.get("http://localhost/mydb/getUsers.php")
-                .then(function (response) {
-                    var input = JSON.parse(response.data);
-                    $scope.users = input.records;
 
+            $scope.getAssignedUsers =function() {
+                $http.get("http://localhost/mydb/getUsers.php")
+                    .then(function (response) {
+                        var input = JSON.parse(response.data);
+                        $scope.users = input.records;
+
+                        var obj = {surv_name: selectSurveyAssignUsers};
+                        var param = JSON.stringify(obj);
+                        $http({
+                            method: 'POST',
+                            url: 'http://localhost/mydb/getAssociations.php',
+                            data: "message=" + param,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                            .then(function (response) {
+                                var input = JSON.parse(response.data);
+                                var resp = input.records;
+                                $scope.assignedUsers = [];
+
+                                for(var i=0; i < $scope.users.length;i++) {
+                                    for(var j=0; j< resp.length;j++) {
+                                        if($scope.users[i].ID == resp[j].us_id) {
+                                            $scope.assignedUsers.push($scope.users[i]);
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+                            });
+                    });
+            };
+            $scope.getAssignedUsers();
+
+
+            $scope.deleteAssegnation = function(id) {
+                var obj = {us_id: id,surv_name:selectSurveyAssignUsers};
+                var param = JSON.stringify(obj);
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost/mydb/deleteAssociation.php',
+                    data: "message=" + param,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function (response) {
+                        $scope.getAssignedUsers();
+
+                    });
+
+            };
+
+            $scope.addAssegnation = function (id) {
+                var isPresent = false;
+                for (var i=0; i < $scope.assignedUsers.length; i++) {
+                    if ($scope.assignedUsers[i].ID == id)
+                        isPresent = true;
+                }
+                if(!isPresent) {
+                    var obj = {us_id: id,surv_name:selectSurveyAssignUsers};
+                    var param = JSON.stringify(obj);
                     $http({
                         method: 'POST',
-                        url: 'http://localhost/mydb/getAssociations.php',
+                        url: 'http://localhost/mydb/addAssociation.php',
                         data: "message=" + param,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
                         .then(function (response) {
-                            var input = JSON.parse(response.data);
-                            var resp = input.records;
-
-                            $scope.assignedUsers = $scope.users.filter(function (elem) {
-                                return elem.id == resp.us_id;
-                            });
+                            $scope.getAssignedUsers();
 
                         });
-                });
+                }
 
-            var obj = {surv_name: selectSurveyAssignUsers};
-            var param = JSON.stringify(obj);
+
+
+            }
+
+
+
+
 
 
 

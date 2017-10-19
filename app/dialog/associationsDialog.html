@@ -1,7 +1,17 @@
-<md-dialog layout="column">
+<md-dialog layout="column" layout-padding>
     <h3 class="md-headline">
         Assigned users
     </h3>
-    <md-card ng-repeat="us in assignedUsers">{{us.username}}</md-card>
+
+    <md-select placeholder="Add an user" ng-model="users"  style="min-width: 200px;">
+        <md-option ng-value="user" ng-click="addAssegnation(user.ID)" ng-repeat="user in users">{{user.username}}</md-option>
+    </md-select>
+
+    <md-card ng-repeat="us in assignedUsers">
+        {{us.username}}
+        <md-button ng-click="deleteAssegnation(us.ID)">
+            Delete
+        </md-button>
+    </md-card>
 
 </md-dialog>

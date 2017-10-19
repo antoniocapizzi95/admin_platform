@@ -24,19 +24,34 @@
             });
 
         vm.addUser = function () {
-            var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword});
+            var isPresent = false;
+            for(var i=0; i<vm.users.length; i++) {
+                if(vm.users[i].username == vm.newUsername) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent) {
+                var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword});
 
-            $http({
-                method: 'POST',
-                url: 'http://localhost/mydb/addUser.php',
-                data: "message=" + param,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .then(function (response) {
-                    vm.addUserButtonShow = true;
-                    $route.reload();
-                });
-        }
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost/mydb/addUser.php',
+                    data: "message=" + param,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function (response) {
+                        vm.addUserButtonShow = true;
+                        $route.reload();
+                    });
+            } else {
+                vm.addUserButtonShow = true;
+                vm.newUsername = "";
+                vm.newPassword = "";
+            }
+
+
+        };
 
         vm.deleteUser = function (id) {
             var param = JSON.stringify({id:id});
