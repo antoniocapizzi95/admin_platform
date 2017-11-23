@@ -21,7 +21,7 @@
                 vm.surveys = input.records;
             });
 
-        vm.deleteSurvey = function(id) {
+        vm.deleteSurvey = function(id, name) {
             var obj = {id: id};
             var param = JSON.stringify(obj);
             $http({
@@ -31,8 +31,24 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
-                    //$location.path("/surveys");
-                    $route.reload();
+
+
+
+                    var obj2 = {surv_name:name};
+                    var param2 = JSON.stringify(obj2);
+                    $http({
+                        method: 'POST',
+                        url: 'http://localhost/mydb/deleteAssociationBySurvName.php',
+                        data: "message=" + param2,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
+                        .then(function (response) {
+                            $route.reload();
+
+                        });
+
+
+
                 });
         }
 

@@ -14,11 +14,11 @@
         vm.newQuestionButtonFlag = true;
         vm.surveyName = "";
         vm.description = "";
-        vm.newQuestions = "";
+        vm.newQuestion = "";
         vm.questions = [];
         vm.addQuestion = function() {
-            vm.questions.push(vm.newQuestions);
-            vm.newQuestions = "";
+            vm.questions.push(vm.newQuestion);
+            vm.newQuestion = "";
             vm.newQuestionButtonFlag = true;
         }
 
