@@ -34,5 +34,15 @@
     </div>
     <div layout="column" ng-show="Surveys.showAnswerForm">
 
+        <div>User: {{Surveys.thisResult.user}}</div>>
+        <div> Description: {{Surveys.thisResult.description}}</div>
+        <div>Place: {{Surveys.thisResult.place}}</div>
+        <div>Date: {{Surveys.thisResult.date}}</div>
+        <div>Questions/answers:</div>
+        <div layout="column" ng-repeat="q in Surveys.thisResult.questions">
+            <div>{{$index}} {{q}}</div>
+            <div>{{Surveys.thisResult.answers[$index]}}</div>
+        </div>
+
     </div>
 </div>
