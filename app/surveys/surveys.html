@@ -1,5 +1,5 @@
-<h2 class="md-diplay-1" layout-padding>Surveys</h2>
-<div layout="column">
+<h2 class="md-display-1" layout-padding>Surveys</h2>
+<div layout="column" ng-hide="Surveys.showResults">
     <md-button goto="/newSurvey">
         New Survey
     </md-button>
@@ -15,10 +15,24 @@
             <md-button>
                 Show Questions
             </md-button>
-            <md-button>
+            <md-button ng-click="Surveys.showResults(surv)">
                 Show Results
             </md-button>
         </md-card>
     </div>
 
+</div>
+<div ng-show="Surveys.showResults" layout="column">
+    <md-button ng-click="Surveys.showResults = false">Back</md-button>
+    <div class="md-headline">Results of: {{Surveys.selectedSurvName}}</div>
+    <div layout="row">
+        <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" ng-click="Surveys.showThisResult(ans)">
+            {{ans.user}}
+            {{ans.place}}
+            {{ans.date}}
+        </md-card>
+    </div>
+    <div layout="column" ng-show="Surveys.showAnswerForm">
+
+    </div>
 </div>

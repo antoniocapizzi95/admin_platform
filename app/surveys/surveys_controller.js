@@ -14,6 +14,9 @@
         var vm= this;
 
         vm.surveys = [];
+        var compiledSurveys = [];
+
+        vm.showResults = false;
 
         $http.get("http://localhost/mydb/getSurveys.php")
             .then(function (response) {
@@ -50,6 +53,26 @@
 
 
                 });
+        }
+
+        vm.showResults = function (surv) {
+            $http.get("http://localhost/mydb/getAnswers.php")
+                .then(function (response) {
+                    var input = JSON.parse(response.data);
+                    compiledSurveys = input.records;
+                    vm.selectedSurvName = surv.name;
+                    vm.selectedAnswers = compiledSurveys.filter(function (el) {
+                        return (el.object.surv_name === surv.object.name);
+                    });
+                    vm.showResults = true;
+                });
+        }
+
+        vm.showAnswerForm = false;
+
+        vm.showThisResult = function(ans) {
+            vm.showAnswerForm = true;
+            vm.thisResult = ans;
         }
 
         var selectSurveyAssignUsers;
