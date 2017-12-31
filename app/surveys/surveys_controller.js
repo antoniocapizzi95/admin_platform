@@ -16,7 +16,7 @@
         vm.surveys = [];
         var compiledSurveys = [];
 
-        vm.showResults = false;
+        vm.showResult = false;
 
         $http.get("http://localhost/mydb/getSurveys.php")
             .then(function (response) {
@@ -55,17 +55,26 @@
                 });
         }
 
+        vm.selectedSurvName = '';
+        vm.selectedAnswers = [];
         vm.showResults = function (surv) {
             $http.get("http://localhost/mydb/getAnswers.php")
                 .then(function (response) {
                     var input = JSON.parse(response.data);
                     compiledSurveys = input.records;
-                    vm.selectedSurvName = surv.name;
+                    vm.selectedSurvName = surv.object.name;
                     vm.selectedAnswers = compiledSurveys.filter(function (el) {
                         return (el.object.surv_name === surv.object.name);
                     });
-                    vm.showResults = true;
+                    vm.showResult = true;
                 });
+        }
+
+        vm.questionsView;
+        vm.showQuestion = false;
+        vm.showQuestions = function (surv) {
+            vm.questionsView = surv;
+            vm.showQuestion = true;
         }
 
         vm.showAnswerForm = false;
@@ -73,6 +82,25 @@
         vm.showThisResult = function(ans) {
             vm.showAnswerForm = true;
             vm.thisResult = ans;
+        }
+
+        vm.deleteThisResult= function (id) {
+            var param = JSON.stringify({id:id});
+
+            $http({
+                method: 'POST',
+                url: 'http://localhost/mydb/deleteAnswers.php',
+                data: "message=" + param,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+                .then(function (response) {
+
+                    for (var i = vm.selectedAnswers.length - 1; i >= 0; --i) {
+                        if (vm.selectedAnswers[i].ID == id) {
+                            vm.selectedAnswers.splice(i,1);
+                        }
+                    }
+                });
         }
 
         var selectSurveyAssignUsers;

@@ -1,10 +1,10 @@
 <h2 class="md-display-1" layout-padding>Surveys</h2>
-<div layout="column" ng-hide="Surveys.showResults">
+<div layout="column" ng-hide="Surveys.showResult || Surveys.showQuestion">
     <md-button goto="/newSurvey">
         New Survey
     </md-button>
-    <div layout="column" >
-        <md-card ng-repeat="surv in Surveys.surveys">
+    <div layout="row" >
+        <md-card ng-repeat="surv in Surveys.surveys" layout="column" layout-padding>
             {{surv.object.name}}
             <md-button ng-click="Surveys.deleteSurvey(surv.ID,surv.object.name)">
                 Delete
@@ -12,7 +12,7 @@
             <md-button ng-click="Surveys.assignUsers($event,surv.object.name)">
                 Assign Users
             </md-button>
-            <md-button>
+            <md-button ng-click="Surveys.showQuestions(surv.object)">
                 Show Questions
             </md-button>
             <md-button ng-click="Surveys.showResults(surv)">
@@ -22,27 +22,40 @@
     </div>
 
 </div>
-<div ng-show="Surveys.showResults" layout="column">
-    <md-button ng-click="Surveys.showResults = false">Back</md-button>
+<div ng-show="Surveys.showResult" layout="column">
+    <md-button ng-click="Surveys.showResult = false">Back</md-button>
     <div class="md-headline">Results of: {{Surveys.selectedSurvName}}</div>
     <div layout="row">
-        <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" ng-click="Surveys.showThisResult(ans)">
-            {{ans.user}}
-            {{ans.place}}
-            {{ans.date}}
+        <md-card layout="column" layout-padding ng-repeat="ans in Surveys.selectedAnswers" >
+            <div>User: {{ans.object.user}}</div>
+            <div>Place: {{ans.object.place}}</div>
+            <div>Date: {{ans.object.date}}</div>
+            <div layout="row">
+                <md-button ng-click="Surveys.showThisResult(ans.object)">Show</md-button>
+                <md-button ng-click="Surveys.deleteThisResult(ans.ID)">Delete</md-button>
+            </div>
         </md-card>
     </div>
     <div layout="column" ng-show="Surveys.showAnswerForm">
 
-        <div>User: {{Surveys.thisResult.user}}</div>>
+        <div>User: {{Surveys.thisResult.user}}</div>
         <div> Description: {{Surveys.thisResult.description}}</div>
         <div>Place: {{Surveys.thisResult.place}}</div>
         <div>Date: {{Surveys.thisResult.date}}</div>
         <div>Questions/answers:</div>
         <div layout="column" ng-repeat="q in Surveys.thisResult.questions">
-            <div>{{$index}} {{q}}</div>
+            <div layout="row">{{$index}} {{q}}</div>
             <div>{{Surveys.thisResult.answers[$index]}}</div>
         </div>
 
+    </div>
+</div>
+
+<div ng-show="Surveys.showQuestion" layout="column">
+    <md-button ng-click="Surveys.showQuestion = false">Back</md-button>
+    {{Surveys.questionsView.name}}
+    <div ng-repeat="q in Surveys.questionsView.questions" layout="row">
+        <div>{{$index}} </div>
+        <div>{{q}}</div>
     </div>
 </div>
