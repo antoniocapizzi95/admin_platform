@@ -18,7 +18,7 @@
 
     <md-card layout="row" ng-repeat="usr in Users.users">
         <h3 class="md-subhead">{{usr.username}}</h3>
-        <md-button ng-click="deleteUser(usr.ID)">Delete User</md-button>
+        <md-button ng-click="Users.deleteUser(usr.ID)">Delete User</md-button>
     </md-card>
 </div>
 

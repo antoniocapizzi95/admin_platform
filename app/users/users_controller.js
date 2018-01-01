@@ -17,7 +17,7 @@
         vm.addUserButtonShow = true;
         vm.newUsername;
         vm.newPassword;
-        $http.get("http://localhost/mydb/getUsers.php")
+        $http.get("http://localhost/mydb/users.php")
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.users = input.records;
@@ -36,7 +36,7 @@
 
                 $http({
                     method: 'POST',
-                    url: 'http://localhost/mydb/addUser.php',
+                    url: 'http://localhost/mydb/users.php',
                     data: "message=" + param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
@@ -54,12 +54,10 @@
         };
 
         vm.deleteUser = function (id) {
-            var param = JSON.stringify({id:id});
 
             $http({
-                method: 'POST',
-                url: 'http://localhost/mydb/deleteUser.php',
-                data: "message=" + param,
+                method: 'DELETE',
+                url: 'http://localhost/mydb/users.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
