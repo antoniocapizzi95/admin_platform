@@ -33,7 +33,7 @@
 
                 $http({
                     method: 'POST',
-                    url: 'http://localhost/mydb/addSurvey.php',
+                    url: 'http://localhost/mydb/surveys.php',
                     data: "message=" + param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })

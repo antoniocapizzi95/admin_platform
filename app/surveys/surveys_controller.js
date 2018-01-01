@@ -18,19 +18,17 @@
 
         vm.showResult = false;
 
-        $http.get("http://localhost/mydb/getSurveys.php")
+        $http.get("http://localhost/mydb/surveys.php")
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.surveys = input.records;
             });
 
         vm.deleteSurvey = function(id, name) {
-            var obj = {id: id};
-            var param = JSON.stringify(obj);
+
             $http({
-                method: 'POST',
-                url: 'http://localhost/mydb/deleteSurvey.php',
-                data: "message=" + param,
+                method: 'DELETE',
+                url: 'http://localhost/mydb/surveys.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
