@@ -35,12 +35,11 @@
 
 
 
-                    var obj2 = {surv_name:name};
+                    var obj2 = {surv_name:name,bySurvName:"true"};
                     var param2 = JSON.stringify(obj2);
                     $http({
-                        method: 'POST',
-                        url: 'http://localhost/mydb/deleteAssociationBySurvName.php',
-                        data: "message=" + param2,
+                        method: 'DELETE',
+                        url: 'http://localhost/mydb/associations.php/'+param2,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
                         .then(function (response) {
@@ -56,7 +55,7 @@
         vm.selectedSurvName = '';
         vm.selectedAnswers = [];
         vm.showResults = function (surv) {
-            $http.get("http://localhost/mydb/getAnswers.php")
+            $http.get("http://localhost/mydb/answers.php")
                 .then(function (response) {
                     var input = JSON.parse(response.data);
                     compiledSurveys = input.records;
@@ -83,12 +82,10 @@
         }
 
         vm.deleteThisResult= function (id) {
-            var param = JSON.stringify({id:id});
 
             $http({
-                method: 'POST',
-                url: 'http://localhost/mydb/deleteAnswers.php',
-                data: "message=" + param,
+                method: 'DELETE',
+                url: 'http://localhost/mydb/answers.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
@@ -125,17 +122,16 @@
             $scope.assignedUsers = [];
 
             $scope.getAssignedUsers =function() {
-                $http.get("http://localhost/mydb/getUsers.php")
+                $http.get("http://localhost/mydb/users.php")
                     .then(function (response) {
                         var input = JSON.parse(response.data);
                         $scope.users = input.records;
 
-                        var obj = {surv_name: selectSurveyAssignUsers};
+                        var obj = {surv_name: selectSurveyAssignUsers,source:"ap"};
                         var param = JSON.stringify(obj);
                         $http({
-                            method: 'POST',
-                            url: 'http://localhost/mydb/getAssociations.php',
-                            data: "message=" + param,
+                            method: 'GET',
+                            url: 'http://localhost/mydb/associations.php/'+param,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {
@@ -160,12 +156,11 @@
 
 
             $scope.deleteAssegnation = function(id) {
-                var obj = {us_id: id,surv_name:selectSurveyAssignUsers};
+                var obj = {us_id: id,surv_name:selectSurveyAssignUsers,bySurvName:"false"};
                 var param = JSON.stringify(obj);
                 $http({
-                    method: 'POST',
-                    url: 'http://localhost/mydb/deleteAssociation.php',
-                    data: "message=" + param,
+                    method: 'DELETE',
+                    url: 'http://localhost/mydb/association.php/'+param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
                     .then(function (response) {
@@ -186,7 +181,7 @@
                     var param = JSON.stringify(obj);
                     $http({
                         method: 'POST',
-                        url: 'http://localhost/mydb/addAssociation.php',
+                        url: 'http://localhost/mydb/associations.php',
                         data: "message=" + param,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
