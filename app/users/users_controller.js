@@ -7,9 +7,9 @@
 
     angular.module('myApp.users', ['ngRoute'])
         .controller('usersCtrl', usersCtrl);
-    usersCtrl.$inject = ['$scope','$http','$route'];
+    usersCtrl.$inject = ['$scope','$http','$route','SettingsService'];
 
-    function usersCtrl($scope,$http,$route) {
+    function usersCtrl($scope,$http,$route,SettingsService) {
 
         var vm = this;
 
@@ -17,7 +17,7 @@
         vm.addUserButtonShow = true;
         vm.newUsername;
         vm.newPassword;
-        $http.get("http://localhost/mydb/users.php")
+        $http.get('http://'+SettingsService.serverAddress+'/mydb/users.php')
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.users = input.records;
@@ -36,7 +36,7 @@
 
                 $http({
                     method: 'POST',
-                    url: 'http://localhost/mydb/users.php',
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/users.php',
                     data: "message=" + param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
@@ -57,7 +57,7 @@
 
             $http({
                 method: 'DELETE',
-                url: 'http://localhost/mydb/users.php/'+id,
+                url: 'http://'+SettingsService.serverAddress+'/mydb/users.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {

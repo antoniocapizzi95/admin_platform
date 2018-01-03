@@ -7,15 +7,22 @@
 
     angular.module('myApp.settings', [])
         .controller('settingsCtrl', settingsCtrl);
-    settingsCtrl.$inject = ['$scope'];
+    settingsCtrl.$inject = ['SettingsService'];
 
-    function settingsCtrl($scope) {
+    function settingsCtrl(SettingsService) {
 
+        var vm = this;
+        vm.service = SettingsService;
 
+        vm.adminUsername = SettingsService.adminUsername;
+        vm.adminPassword = SettingsService.adminPassword;
+        vm.serverAddress = SettingsService.serverAddress;
 
-
-
-
+        vm.edit = function() {
+            SettingsService.adminUsername = vm.adminUsername;
+            SettingsService.adminPassword = vm.adminPassword;
+            SettingsService.serverAddress = vm.serverAddress;
+        }
 
     }
 

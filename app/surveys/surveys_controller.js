@@ -7,9 +7,9 @@
 
     angular.module('myApp.surveys', [])
         .controller('surveysCtrl', surveysCtrl);
-    surveysCtrl.$inject = ['$scope','$http','$route','$mdDialog'];
+    surveysCtrl.$inject = ['$scope','$http','$route','$mdDialog','SettingsService'];
 
-    function surveysCtrl($scope,$http,$route,$mdDialog) {
+    function surveysCtrl($scope,$http,$route,$mdDialog,SettingsService) {
 
         var vm= this;
 
@@ -18,7 +18,7 @@
 
         vm.showResult = false;
 
-        $http.get("http://localhost/mydb/surveys.php")
+        $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php')
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.surveys = input.records;
@@ -28,7 +28,7 @@
 
             $http({
                 method: 'DELETE',
-                url: 'http://localhost/mydb/surveys.php/'+id,
+                url: 'http://'+SettingsService.serverAddress+'/mydb/surveys.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
@@ -39,7 +39,7 @@
                     var param2 = JSON.stringify(obj2);
                     $http({
                         method: 'DELETE',
-                        url: 'http://localhost/mydb/associations.php/'+param2,
+                        url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param2,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
                         .then(function (response) {
@@ -55,7 +55,7 @@
         vm.selectedSurvName = '';
         vm.selectedAnswers = [];
         vm.showResults = function (surv) {
-            $http.get("http://localhost/mydb/answers.php")
+            $http.get('http://'+SettingsService.serverAddress+'/mydb/answers.php')
                 .then(function (response) {
                     var input = JSON.parse(response.data);
                     compiledSurveys = input.records;
@@ -85,7 +85,7 @@
 
             $http({
                 method: 'DELETE',
-                url: 'http://localhost/mydb/answers.php/'+id,
+                url: 'http://'+SettingsService.serverAddress+'/mydb/answers.php/'+id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
                 .then(function (response) {
@@ -117,12 +117,12 @@
                 });
         };
 
-        function assignUsersDialogController($scope, $mdDialog, $route) {
+        function assignUsersDialogController($scope, $mdDialog, $route, SettingsService) {
             $scope.users = [];
             $scope.assignedUsers = [];
 
             $scope.getAssignedUsers =function() {
-                $http.get("http://localhost/mydb/users.php")
+                $http.get('http://'+SettingsService.serverAddress+'/mydb/users.php')
                     .then(function (response) {
                         var input = JSON.parse(response.data);
                         $scope.users = input.records;
@@ -131,7 +131,7 @@
                         var param = JSON.stringify(obj);
                         $http({
                             method: 'GET',
-                            url: 'http://localhost/mydb/associations.php/'+param,
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {
@@ -160,7 +160,7 @@
                 var param = JSON.stringify(obj);
                 $http({
                     method: 'DELETE',
-                    url: 'http://localhost/mydb/association.php/'+param,
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/association.php/'+param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
                     .then(function (response) {
@@ -181,7 +181,7 @@
                     var param = JSON.stringify(obj);
                     $http({
                         method: 'POST',
-                        url: 'http://localhost/mydb/associations.php',
+                        url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php',
                         data: "message=" + param,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
