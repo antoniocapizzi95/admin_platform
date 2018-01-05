@@ -23,8 +23,12 @@
     <div ng-repeat="que in NewSurvey.questions">
         <md-card layout="row">
             {{$index + 1}} {{que}}
-            <md-button ng-click="NewSurvey.deleteQUestion($index)">Delete</md-button>
+            <md-button ng-click="NewSurvey.deleteQuestion($index)">Delete</md-button>
         </md-card>
     </div>
+
+</div>
+<div layout="row" layout.align="end center">
+    <md-button goto="/surveys">Cancel</md-button>
     <md-button ng-click="NewSurvey.confirm()">Confirm</md-button>
 </div>

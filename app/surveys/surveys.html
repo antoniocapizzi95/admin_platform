@@ -22,11 +22,11 @@
     </div>
 
 </div>
-<div ng-show="Surveys.showResult" layout="column">
+<div ng-show="Surveys.showResult" layout="column" layout-padding>
     <md-button ng-click="Surveys.showResult = false">Back</md-button>
-    <div class="md-headline">Results of: {{Surveys.selectedSurvName}}</div>
-    <div layout="row">
-        <md-card layout="column" layout-padding ng-repeat="ans in Surveys.selectedAnswers" >
+    <div class="md-headline">Results of: <b font-size="24px">{{Surveys.selectedSurvName}}</b></div>
+    <div layout="row" layout-wrap>
+        <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" layout-padding>
             <div>User: {{ans.object.user}}</div>
             <div>Place: {{ans.object.place}}</div>
             <div>Date: {{ans.object.date}}</div>
@@ -36,7 +36,7 @@
             </div>
         </md-card>
     </div>
-    <div layout="column" ng-show="Surveys.showAnswerForm">
+    <md-card layout="column" ng-show="Surveys.showAnswerForm" layout-padding>
 
         <div>User: {{Surveys.thisResult.user}}</div>
         <div> Description: {{Surveys.thisResult.description}}</div>
@@ -44,18 +44,21 @@
         <div>Date: {{Surveys.thisResult.date}}</div>
         <div>Questions/answers:</div>
         <div layout="column" ng-repeat="q in Surveys.thisResult.questions">
-            <div layout="row">{{$index}} {{q}}</div>
-            <div>{{Surveys.thisResult.answers[$index]}}</div>
+            <div layout="row">Question {{$index+1}}: {{q}}</div>
+            <div>Answer {{$index + 1}}: {{Surveys.thisResult.answers[$index]}}</div>
         </div>
 
-    </div>
+    </md-card>
 </div>
 
-<div ng-show="Surveys.showQuestion" layout="column">
+<div ng-show="Surveys.showQuestion" layout="column" layout-padding>
     <md-button ng-click="Surveys.showQuestion = false">Back</md-button>
-    {{Surveys.questionsView.name}}
-    <div ng-repeat="q in Surveys.questionsView.questions" layout="row">
-        <div>{{$index}} </div>
-        <div>{{q}}</div>
-    </div>
+
+    <div class="md-headline">Questions of: <b style="font-size:24px">{{Surveys.questionsView.name}}</b></div>
+
+
+
+    <md-card ng-repeat="q in Surveys.questionsView.questions" layout="row" layout-padding>
+        <div>Question {{$index + 1}}: {{q}}</div>
+    </md-card>
 </div>

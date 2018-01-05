@@ -7,9 +7,9 @@
 
     angular.module('myApp.newSurvey', [])
         .controller('newSurveyCtrl', newSurveyCtrl);
-    newSurveyCtrl.$inject = ['$scope','$location','$http'];
+    newSurveyCtrl.$inject = ['$scope','$location','$http','SettingsService'];
 
-    function newSurveyCtrl($scope,$location,$http) {
+    function newSurveyCtrl($scope,$location,$http,SettingsService) {
         var vm = this;
         vm.newQuestionButtonFlag = true;
         vm.surveyName = "";
@@ -22,7 +22,7 @@
             vm.newQuestionButtonFlag = true;
         }
 
-        vm.deleteQuestions = function (index) {
+        vm.deleteQuestion = function (index) {
             vm.questions.splice(index, 1);
         }
 
@@ -33,7 +33,7 @@
 
                 $http({
                     method: 'POST',
-                    url: 'http://localhost/mydb/surveys.php',
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/surveys.php',
                     data: "message=" + param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
