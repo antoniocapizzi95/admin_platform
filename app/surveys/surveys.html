@@ -1,9 +1,12 @@
 <h2 class="md-display-1" layout-padding>Surveys</h2>
 <div layout="column" ng-hide="Surveys.showResult || Surveys.showQuestion">
-    <md-button goto="/newSurvey">
-        New Survey
-    </md-button>
-    <div layout="row" >
+    <div layout="row" layout-align="center center">
+        <md-button goto="/newSurvey">
+            New Survey
+        </md-button>
+    </div>
+
+    <div layout="row" layout-wrap>
         <md-card ng-repeat="surv in Surveys.surveys" layout="column" layout-padding>
             {{surv.object.name}}
             <md-button ng-click="Surveys.deleteSurvey(surv.ID,surv.object.name)">
@@ -23,7 +26,10 @@
 
 </div>
 <div ng-show="Surveys.showResult" layout="column" layout-padding>
-    <md-button ng-click="Surveys.showResult = false">Back</md-button>
+    <div layout="row" layout-align="start center">
+        <md-button ng-click="Surveys.showResult = false">Back</md-button>
+    </div>
+
     <div class="md-headline">Results of: <b font-size="24px">{{Surveys.selectedSurvName}}</b></div>
     <div layout="row" layout-wrap>
         <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" layout-padding>
@@ -52,7 +58,10 @@
 </div>
 
 <div ng-show="Surveys.showQuestion" layout="column" layout-padding>
-    <md-button ng-click="Surveys.showQuestion = false">Back</md-button>
+
+    <div layout="row" layout-align="start center">
+        <md-button ng-click="Surveys.showQuestion = false">Back</md-button>
+    </div>
 
     <div class="md-headline">Questions of: <b style="font-size:24px">{{Surveys.questionsView.name}}</b></div>
 

@@ -3,16 +3,19 @@
     <div layout="column">
         <md-input-container>
             <label>Survey Name</label>
-            <input name="answer" ng-model="NewSurvey.surveyName">
+            <input name="answer" ng-model="NewSurvey.surveyName" required>
         </md-input-container>
         <md-input-container>
             <label>Description</label>
-            <input name="description" ng-model="NewSurvey.description">
+            <input name="description" ng-model="NewSurvey.description" required>
         </md-input-container>
     </div>
-    <md-button ng-click="NewSurvey.newQuestionButtonFlag = false" ng-show="NewSurvey.newQuestionButtonFlag">
-        Add a question
-    </md-button>
+    <div layout="row">
+        <md-button ng-click="NewSurvey.newQuestionButtonFlag = false" ng-show="NewSurvey.newQuestionButtonFlag">
+            Add a question
+        </md-button>
+    </div>
+
     <div layout="row" ng-hide="NewSurvey.newQuestionButtonFlag">
         <md-input-container>
             <label>Question</label>
@@ -21,14 +24,21 @@
         <md-button ng-click="NewSurvey.addQuestion()">Add</md-button>
     </div>
     <div ng-repeat="que in NewSurvey.questions">
-        <md-card layout="row">
-            {{$index + 1}} {{que}}
-            <md-button ng-click="NewSurvey.deleteQuestion($index)">Delete</md-button>
+        <md-card layout="column" layout-padding>
+            <div class="md-title">Question {{$index + 1}}: {{que}}</div>
+            <div layout="row" layout-align="center center">
+                <md-button ng-click="NewSurvey.deleteQuestion($index)">Delete</md-button>
+            </div>
+
         </md-card>
     </div>
 
 </div>
-<div layout="row" layout.align="end center">
-    <md-button goto="/surveys">Cancel</md-button>
-    <md-button ng-click="NewSurvey.confirm()">Confirm</md-button>
+<div layout="column" layout-align="center end" layout-padding>
+    <div style="color:red">{{NewSurvey.message}}</div>
+    <div layout="row">
+        <md-button goto="/surveys">Cancel</md-button>
+        <md-button ng-click="NewSurvey.confirm()">Confirm</md-button>
+    </div>
+
 </div>
