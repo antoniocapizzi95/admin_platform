@@ -1,16 +1,22 @@
 <h2 class="md-display-1" layout-padding>Settings</h2>
-<md-card layout="column" layout-padding flex>
-    <!--<md-input-container>
-        <label>Admin Username</label>
-        <input name="adminUsername" ng-model="Settings.adminUsername" required>
-    </md-input-container>
-    <md-input-container>
-        <label>Admin Password</label>
-        <input name="adminPassword" ng-model="Settings.adminPassword" required>
-    </md-input-container>-->
-    <md-input-container>
-        <label>Server Address</label>
-        <input name="serverAddress" ng-model="Settings.serverAddress" required>
-    </md-input-container>
-    <md-button ng-click="Settings.edit()">Edit</md-button>
-</md-card>
+<div layout="column" layout-padding>
+    <md-card layout="column" layout-padding flex>
+        <!--<md-input-container>
+            <label>Admin Username</label>
+            <input name="adminUsername" ng-model="Settings.adminUsername" required>
+        </md-input-container>
+        <md-input-container>
+            <label>Admin Password</label>
+            <input name="adminPassword" ng-model="Settings.adminPassword" required>
+        </md-input-container>-->
+        <md-input-container>
+            <label>Server Address</label>
+            <input name="serverAddress" ng-model="Settings.serverAddress" required>
+        </md-input-container>
+        <div style="color:red">{{Settings.message}}</div>
+        <div layout="row">
+            <md-button class="md-raised font-size-button" ng-click="Settings.edit()">Edit</md-button>
+        </div>
+
+    </md-card>
+</div>

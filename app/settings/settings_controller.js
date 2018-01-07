@@ -16,11 +16,22 @@
         /*vm.adminUsername = SettingsService.adminUsername;
         vm.adminPassword = SettingsService.adminPassword;*/
         vm.serverAddress = SettingsService.serverAddress;
+        vm.message = '';
 
         vm.edit = function() {
             /*SettingsService.adminUsername = vm.adminUsername;
             SettingsService.adminPassword = vm.adminPassword;*/
-            SettingsService.serverAddress = vm.serverAddress;
+
+            $http.get('http://'+vm.serverAddress+'/mydb/users.php')
+                .success(function (response) {
+                    SettingsService.serverAddress = vm.serverAddress;
+                    vm.message = 'Server address changed';
+                })
+                .error(function (msg) {
+                    vm.message = 'The server address is wrong';
+                });
+
+
         }
 
     }

@@ -1,24 +1,38 @@
 <h2 class="md-display-1" layout-padding>Users</h2>
 <div layout="column" layout-padding>
     <div layout="row">
-        <md-button ng-click="Users.addUserButtonShow = false" ng-show="Users.addUserButtonShow">Add User</md-button>
-        <div layout="row" ng-hide="Users.addUserButtonShow">
-            <md-input-container>
-                <label>Username</label>
-                <input name="username" ng-model="Users.newUsername" required >
-            </md-input-container>
-            <md-input-container>
-                <label>Password</label>
-                <input name="password" ng-model="Users.newPassword" required>
-            </md-input-container>
-            <md-button ng-click="Users.addUser()">Add</md-button>
-            <md-button ng-click="Users.addUserButtonShow=true">Cancel</md-button>
+        <md-button class="md-raised" ng-click="Users.addUserButtonShow = false" ng-show="Users.addUserButtonShow">Add User</md-button>
+        <div layout="column" ng-hide="Users.addUserButtonShow">
+            <div layout="row">
+                <md-input-container>
+                    <label>Username</label>
+                    <input name="username" ng-model="Users.newUsername" required >
+                </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="Users.newPassword" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Retype Password</label>
+                    <input name="re-password" type="password" ng-model="Users.rePsw" required>
+                </md-input-container>
+                <md-button ng-click="Users.addUser()">Add</md-button>
+                <md-button ng-click="Users.addUserButtonShow=true">Cancel</md-button>
+
+            </div>
+            <div>{{Users.message}}</div>
+        </div>
+
+    </div>
+    <div layout="column">
+        <div class="md-title" layout-padding>Users list:</div>
+        <div layout="row" layout-wrap>
+            <md-card layout="column" layout-padding ng-repeat="usr in Users.users">
+                <h3 class="md-subhead">{{usr.username}}</h3>
+                <md-button class="md-raised font-size-button" ng-click="Users.deleteUser(usr.ID)">Delete</md-button>
+            </md-card>
         </div>
     </div>
 
-    <md-card layout="row" ng-repeat="usr in Users.users">
-        <h3 class="md-subhead">{{usr.username}}</h3>
-        <md-button ng-click="Users.deleteUser(usr.ID)">Delete User</md-button>
-    </md-card>
 </div>
 

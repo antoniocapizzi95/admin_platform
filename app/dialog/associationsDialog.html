@@ -8,8 +8,8 @@
     </md-select>
 
     <md-card ng-repeat="us in assignedUsers">
-        {{us.username}}
-        <md-button ng-click="deleteAssegnation(us.ID)">
+        <b>{{us.username}}</b>
+        <md-button class="md-raised font-size-button" ng-click="deleteAssegnation(us.ID)">
             Delete
         </md-button>
     </md-card>
