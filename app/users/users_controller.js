@@ -7,9 +7,9 @@
 
     angular.module('myApp.users', ['ngRoute'])
         .controller('usersCtrl', usersCtrl);
-    usersCtrl.$inject = ['$scope','$http','$route','SettingsService'];
+    usersCtrl.$inject = ['$scope','$http','$route','SettingsService','$mdDialog'];
 
-    function usersCtrl($scope,$http,$route,SettingsService) {
+    function usersCtrl($scope,$http,$route,SettingsService,$mdDialog) {
 
         var vm = this;
 
@@ -65,17 +65,41 @@
 
         };
 
-        vm.deleteUser = function (id) {
+        vm.deleteUser = function (id,ev) {
 
-            $http({
-                method: 'DELETE',
-                url: 'http://'+SettingsService.serverAddress+'/mydb/users.php/'+id,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .then(function (response) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to delete this user?')
+                .targetEvent(ev)
+                .ok('Delete')
+                .cancel('Cancel');
 
-                    $route.reload();
-                });
+            $mdDialog.show(confirm).then(function() {
+                $http({
+                    method: 'DELETE',
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/users.php/'+id,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function (response) {
+                        var obj = {us_id:id, bySurvName: "byus_id"};
+                        var param = JSON.stringify(obj);
+
+                        $http({
+                            method: 'DELETE',
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                            .then(function (response) {
+
+                                $route.reload();
+                            });
+                    });
+
+
+            }, function() {
+                //$scope.status = 'You decided to keep your debt.';
+            });
+
+
         }
 
 

@@ -24,32 +24,46 @@
                 vm.surveys = input.records;
             });
 
-        vm.deleteSurvey = function(id, name) {
+        vm.deleteSurvey = function(id, name, ev) {
 
-            $http({
-                method: 'DELETE',
-                url: 'http://'+SettingsService.serverAddress+'/mydb/surveys.php/'+id,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .then(function (response) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to delete this survey?')
+                .targetEvent(ev)
+                .ok('Delete')
+                .cancel('Cancel');
 
-
-
-                    var obj2 = {surv_name:name,bySurvName:"true"};
-                    var param2 = JSON.stringify(obj2);
-                    $http({
-                        method: 'DELETE',
-                        url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param2,
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                    })
-                        .then(function (response) {
-                            $route.reload();
-
-                        });
+            $mdDialog.show(confirm).then(function() {
+                //$scope.status = 'You decided to get rid of your debt.';
+                $http({
+                    method: 'DELETE',
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/surveys.php/'+id,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function (response) {
 
 
 
-                });
+                        var obj2 = {surv_name:name,bySurvName:"true"};
+                        var param2 = JSON.stringify(obj2);
+                        $http({
+                            method: 'DELETE',
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param2,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                            .then(function (response) {
+                                $route.reload();
+
+                            });
+
+
+
+                    });
+            }, function() {
+                //$scope.status = 'You decided to keep your debt.';
+            });
+
+
+
         }
 
         vm.selectedSurvName = '';
@@ -81,21 +95,36 @@
             vm.thisResult = ans;
         }
 
-        vm.deleteThisResult= function (id) {
+        vm.deleteThisResult= function (id,ev) {
 
-            $http({
-                method: 'DELETE',
-                url: 'http://'+SettingsService.serverAddress+'/mydb/answers.php/'+id,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .then(function (response) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to delete this result?')
+                .targetEvent(ev)
+                .ok('Delete')
+                .cancel('Cancel');
 
-                    for (var i = vm.selectedAnswers.length - 1; i >= 0; --i) {
-                        if (vm.selectedAnswers[i].ID == id) {
-                            vm.selectedAnswers.splice(i,1);
+            $mdDialog.show(confirm).then(function() {
+                $http({
+                    method: 'DELETE',
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/answers.php/'+id,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function (response) {
+
+                        for (var i = vm.selectedAnswers.length - 1; i >= 0; --i) {
+                            if (vm.selectedAnswers[i].ID == id) {
+                                vm.selectedAnswers.splice(i,1);
+                            }
                         }
-                    }
-                });
+                    });
+
+
+            }, function() {
+                //$scope.status = 'You decided to keep your debt.';
+            });
+
+
+
         }
 
         var selectSurveyAssignUsers;

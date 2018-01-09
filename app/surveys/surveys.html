@@ -11,7 +11,7 @@
             <b>{{surv.object.name}}</b>
             <div layout="row">
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv.object.name)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv.object.name,$event)">
                         Delete
                     </md-button>
                     <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.object.name)">
@@ -47,7 +47,7 @@
             <div>Date: {{ans.object.date}}</div>
             <div layout="row">
                 <md-button class="md-raised font-size-button" ng-click="Surveys.showThisResult(ans.object)">Show</md-button>
-                <md-button class="md-raised font-size-button" ng-click="Surveys.deleteThisResult(ans.ID)">Delete</md-button>
+                <md-button class="md-raised font-size-button" ng-click="Surveys.deleteThisResult(ans.ID,$event)">Delete</md-button>
             </div>
         </md-card>
     </div>

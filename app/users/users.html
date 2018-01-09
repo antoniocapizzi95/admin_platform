@@ -29,7 +29,7 @@
         <div layout="row" layout-wrap>
             <md-card layout="column" layout-padding ng-repeat="usr in Users.users">
                 <h3 class="md-subhead">{{usr.username}}</h3>
-                <md-button class="md-raised font-size-button" ng-click="Users.deleteUser(usr.ID)">Delete</md-button>
+                <md-button class="md-raised font-size-button" ng-click="Users.deleteUser(usr.ID,$event)">Delete</md-button>
             </md-card>
         </div>
     </div>
