@@ -8,19 +8,19 @@
 
     <div layout="row" layout-wrap>
         <md-card ng-repeat="surv in Surveys.surveys" layout="column" layout-padding>
-            <b>{{surv.object.name}}</b>
+            <b>{{surv.surv_name}}</b>
             <div layout="row">
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv.object.name,$event)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv_name,$event)">
                         Delete
                     </md-button>
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.object.name)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv_name)">
                         Assign Users
                     </md-button>
                 </div>
 
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestions(surv.object)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestions(surv)">
                         Show Questions
                     </md-button>
                     <md-button class="md-raised font-size-button" ng-click="Surveys.showResults(surv)">

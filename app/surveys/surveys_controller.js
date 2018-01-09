@@ -18,7 +18,7 @@
 
         vm.showResult = false;
 
-        $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php')
+        $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php/all')
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.surveys = input.records;

@@ -7,9 +7,9 @@
 
     angular.module('myApp.settings', [])
         .controller('settingsCtrl', settingsCtrl);
-    settingsCtrl.$inject = ['SettingsService'];
+    settingsCtrl.$inject = ['SettingsService','$http'];
 
-    function settingsCtrl(SettingsService) {
+    function settingsCtrl(SettingsService,$http) {
 
         var vm = this;
 
