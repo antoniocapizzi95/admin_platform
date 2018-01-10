@@ -7,16 +7,23 @@
 
     angular.module('myApp.settings', [])
         .controller('settingsCtrl', settingsCtrl);
-    settingsCtrl.$inject = ['SettingsService','$http'];
+    settingsCtrl.$inject = ['SettingsService','$http','$location'];
 
-    function settingsCtrl(SettingsService,$http) {
+    function settingsCtrl(SettingsService,$http,$location) {
 
         var vm = this;
 
-        /*vm.adminUsername = SettingsService.adminUsername;
-        vm.adminPassword = SettingsService.adminPassword;*/
+        vm.adminUsername = SettingsService.adminUsername;
         vm.serverAddress = SettingsService.serverAddress;
         vm.message = '';
+
+        vm.logout = function () {
+            SettingsService.adminUsername = '';
+            SettingsService.adminPassword = '';
+            SettingsService.id = undefined;
+            SettingsService.sidenav = false;
+            $location.path('/login');
+        }
 
         vm.edit = function() {
             /*SettingsService.adminUsername = vm.adminUsername;

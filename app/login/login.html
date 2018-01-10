@@ -1,0 +1,23 @@
+<div layout="row" layout-align="center center" layout-padding flex>
+    <div layout="column" flex>
+        <md-input-container>
+            <label>Server Address</label>
+            <input name="address" ng-model="Login.address" required>
+        </md-input-container>
+        <md-input-container>
+            <label>Username</label>
+            <input name="username" ng-model="Login.username" required>
+        </md-input-container>
+        <md-input-container>
+            <label>Password</label>
+            <input name="password" type="password" ng-model="Login.password" required>
+        </md-input-container>
+        <div style="color:red">{{Login.message}}</div>
+        <div layout="row" layout-align="center center">
+            <md-button ng-click="Login.login()">Login</md-button>
+        </div>
+
+
+    </div>
+
+</div>

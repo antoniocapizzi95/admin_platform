@@ -10,6 +10,7 @@ var adminplat = angular.module('myApp', [
   'myApp.surveys',
     'myApp.newSurvey',
     'myApp.settings',
+  'myApp.login',
   'ngMaterial'
 ])
 .config(['$routeProvider', function ($routeProvider) {
@@ -30,6 +31,12 @@ var adminplat = angular.module('myApp', [
         controllerAs: 'Settings'
       })
 
+      .when('/login', {
+          templateUrl: "login/login.html",
+          controller: 'loginCtrl',
+          controllerAs: 'Login'
+      })
+
       .when('/newSurvey', {
         templateUrl: "surveys/newSurvey.html",
         controller: 'newSurveyCtrl',
@@ -38,8 +45,21 @@ var adminplat = angular.module('myApp', [
 
 }])
 
+
+.controller('MainCtrl', ['SettingsService',
+    function (SettingsService) {
+
+        var vm=this;
+        vm.service = SettingsService;
+
+
+
+
+
+    }])
+
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: '/users'});
+  $routeProvider.otherwise({redirectTo: '/login'});
 }]);

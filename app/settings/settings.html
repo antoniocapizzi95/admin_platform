@@ -1,6 +1,6 @@
 <h2 class="md-display-1" layout-padding>Settings</h2>
-<div layout="column" layout-padding>
-    <md-card layout="column" layout-padding flex>
+<div layout="row" layout-padding>
+    <md-card layout="column" layout-padding>
         <!--<md-input-container>
             <label>Admin Username</label>
             <input name="adminUsername" ng-model="Settings.adminUsername" required>
@@ -19,4 +19,15 @@
         </div>
 
     </md-card>
+    <md-card layout="column" layout-padding >
+        <md-input-container>
+            <label>Admin Logged</label>
+            <input name="adminUsername" ng-model="Settings.adminUsername" disabled>
+        </md-input-container>
+
+        <md-button class="md-raised font-size-button" ng-click="Settings.logout()">Logout</md-button>
+
+
+    </md-card>
+</div>
 </div>

@@ -38,7 +38,7 @@
                     }
                 }
                 if(!isPresent) {
-                    var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword});
+                    var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword,admin:0});
 
                     $http({
                         method: 'POST',
