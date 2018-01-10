@@ -80,12 +80,12 @@
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
                     .then(function (response) {
-                        var obj = {us_id:id, bySurvName: "byus_id"};
+                        var obj = {us_id:id, type: "usid"};
                         var param = JSON.stringify(obj);
 
                         $http({
                             method: 'DELETE',
-                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param,
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {

@@ -14,7 +14,7 @@
                     <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv_name,$event)">
                         Delete
                     </md-button>
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv_name)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.ID)">
                         Assign Users
                     </md-button>
                 </div>
@@ -42,23 +42,23 @@
     <div class="md-headline">Results of: <b font-size="24px">{{Surveys.selectedSurvName}}</b></div>
     <div layout="row" layout-wrap>
         <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" layout-padding>
-            <div>User: {{ans.object.user}}</div>
-            <div>Place: {{ans.object.place}}</div>
-            <div>Date: {{ans.object.date}}</div>
+            <div>User: {{ans.username}}</div>
+            <div>Place: {{ans.place}}</div>
+            <div>Date: {{ans.date}}</div>
             <div layout="row">
-                <md-button class="md-raised font-size-button" ng-click="Surveys.showThisResult(ans.object)">Show</md-button>
+                <md-button class="md-raised font-size-button" ng-click="Surveys.showThisResult(ans)">Show</md-button>
                 <md-button class="md-raised font-size-button" ng-click="Surveys.deleteThisResult(ans.ID,$event)">Delete</md-button>
             </div>
         </md-card>
     </div>
     <md-card layout="column" ng-show="Surveys.showAnswerForm" layout-padding>
 
-        <div>User: {{Surveys.thisResult.user}}</div>
-        <div> Description: {{Surveys.thisResult.description}}</div>
+        <div>User: {{Surveys.thisResult.username}}</div>
+        <div>Description: {{Surveys.thisResult.description}}</div>
         <div>Place: {{Surveys.thisResult.place}}</div>
         <div>Date: {{Surveys.thisResult.date}}</div>
         <div>Questions/answers:</div>
-        <div layout="column" ng-repeat="q in Surveys.thisResult.questions">
+        <div layout="column" ng-repeat="q in Surveys.thisResultSurvey.questions">
             <div layout="row">Question {{$index+1}}: {{q}}</div>
             <div>Answer {{$index + 1}}: {{Surveys.thisResult.answers[$index]}}</div>
         </div>

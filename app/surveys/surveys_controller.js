@@ -43,11 +43,11 @@
 
 
 
-                        var obj2 = {surv_name:name,bySurvName:"true"};
+                        var obj2 = {surv_name:name,type:"survid"};
                         var param2 = JSON.stringify(obj2);
                         $http({
                             method: 'DELETE',
-                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param2,
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param2,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {
@@ -68,14 +68,16 @@
 
         vm.selectedSurvName = '';
         vm.selectedAnswers = [];
+        vm.thisResultSurvey;
         vm.showResults = function (surv) {
             $http.get('http://'+SettingsService.serverAddress+'/mydb/answers.php')
                 .then(function (response) {
                     var input = JSON.parse(response.data);
                     compiledSurveys = input.records;
-                    vm.selectedSurvName = surv.object.name;
+                    vm.selectedSurvName = surv.surv_name;
+                    vm.thisResultSurvey = surv;
                     vm.selectedAnswers = compiledSurveys.filter(function (el) {
-                        return (el.object.surv_name === surv.object.name);
+                        return (el.surv_id === surv.ID);
                     });
                     vm.showResult = true;
                 });
@@ -90,9 +92,12 @@
 
         vm.showAnswerForm = false;
 
+
         vm.showThisResult = function(ans) {
             vm.showAnswerForm = true;
             vm.thisResult = ans;
+
+
         }
 
         vm.deleteThisResult= function (id,ev) {
@@ -128,9 +133,9 @@
         }
 
         var selectSurveyAssignUsers;
-        vm.assignUsers = function(ev,survey) {
+        vm.assignUsers = function(ev,surv_id) {
             //FormService.setCurrDestArr(scope.question.elements);
-            selectSurveyAssignUsers = survey;
+            selectSurveyAssignUsers = surv_id;
             $mdDialog.show({
                 controller: assignUsersDialogController,
                 templateUrl: 'dialog/associationsDialog.html',
@@ -156,11 +161,11 @@
                         var input = JSON.parse(response.data);
                         $scope.users = input.records;
 
-                        var obj = {surv_name: selectSurveyAssignUsers,source:"ap"};
+                        var obj = {surv_id: selectSurveyAssignUsers,source:"ap"};
                         var param = JSON.stringify(obj);
                         $http({
                             method: 'GET',
-                            url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php/'+param,
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {
@@ -185,11 +190,11 @@
 
 
             $scope.deleteAssegnation = function(id) {
-                var obj = {us_id: id,surv_name:selectSurveyAssignUsers,bySurvName:"false"};
+                var obj = {us_id: id,surv_id:selectSurveyAssignUsers,type:"simple"};
                 var param = JSON.stringify(obj);
                 $http({
                     method: 'DELETE',
-                    url: 'http://'+SettingsService.serverAddress+'/mydb/association.php/'+param,
+                    url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
                     .then(function (response) {
@@ -206,11 +211,11 @@
                         isPresent = true;
                 }
                 if(!isPresent) {
-                    var obj = {us_id: id,surv_name:selectSurveyAssignUsers};
+                    var obj = {us_id: id,surv_id:selectSurveyAssignUsers};
                     var param = JSON.stringify(obj);
                     $http({
                         method: 'POST',
-                        url: 'http://'+SettingsService.serverAddress+'/mydb/associations.php',
+                        url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php',
                         data: "message=" + param,
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
