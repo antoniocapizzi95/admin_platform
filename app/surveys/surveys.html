@@ -12,7 +12,7 @@
             <b>{{surv.surv_name}}</b>
             <div layout="row">
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,surv_name,$event)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,$event)">
                         Delete
                     </md-button>
                     <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.ID)">
@@ -73,11 +73,14 @@
         <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestion = false">Back</md-button>
     </div>
 
-    <div class="md-headline">Questions of: <b style="font-size:24px">{{Surveys.questionsView.name}}</b></div>
+    <div class="md-headline">Questions of: <b style="font-size:24px">{{Surveys.questionsView.surv_name}}</b></div>
 
 
 
-    <md-card ng-repeat="q in Surveys.questionsView.questions" layout="row" layout-padding>
-        <div>Question {{$index + 1}}: {{q}}</div>
-    </md-card>
+    <div layout="row" layout-wrap>
+        <md-card ng-repeat="q in Surveys.questionsView.questions" layout="row" layout-padding>
+            <div>Question {{$index + 1}}: {{q}}</div>
+        </md-card>
+    </div>
+
 </div>

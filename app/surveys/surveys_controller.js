@@ -24,7 +24,7 @@
                 vm.surveys = input.records;
             });
 
-        vm.deleteSurvey = function(id, name, ev) {
+        vm.deleteSurvey = function(id, ev) {
 
             var confirm = $mdDialog.confirm()
                 .title('Are you sure you want to delete this survey?')
@@ -43,11 +43,20 @@
 
 
 
-                        var obj2 = {surv_name:name,type:"survid"};
+                        var obj2 = {surv_id:id,type:"survid"};
                         var param2 = JSON.stringify(obj2);
                         $http({
                             method: 'DELETE',
                             url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param2,
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                            .then(function (response) {
+                                $route.reload();
+
+                            });
+                        $http({
+                            method: 'DELETE',
+                            url: 'http://'+SettingsService.serverAddress+'/mydb/answers.php/'+param2,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                             .then(function (response) {
