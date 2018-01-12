@@ -147,7 +147,7 @@
             selectSurveyAssignUsers = surv_id;
             $mdDialog.show({
                 controller: assignUsersDialogController,
-                templateUrl: 'dialog/associationsDialog.html',
+                templateUrl: 'dialog/assignmentsDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true
