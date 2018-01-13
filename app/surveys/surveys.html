@@ -8,7 +8,7 @@
 
     <div class="md-title" layout-padding>Surveys list:</div>
     <div layout="row" layout-wrap>
-        <md-card ng-repeat="surv in Surveys.surveys" layout="column" layout-padding>
+        <md-card ng-repeat="surv in Surveys.surveys | orderBy: 'surv_name'" layout="column" layout-padding>
             <b>{{surv.surv_name}}</b>
             <div layout="row">
                 <div layout="column">
@@ -42,7 +42,7 @@
 
     <div class="md-headline">Results of: <b font-size="24px">{{Surveys.selectedSurvName}}</b></div>
     <div layout="row" layout-wrap>
-        <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers" layout-padding>
+        <md-card layout="column" ng-repeat="ans in Surveys.selectedAnswers | orderBy:'date'" layout-padding>
             <div>User: {{ans.username}}</div>
             <div>Place: {{ans.place}}</div>
             <div>Date: {{ans.date}}</div>

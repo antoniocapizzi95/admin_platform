@@ -51,7 +51,7 @@
                             $route.reload();
                         });
                 } else {
-                    vm.addUserButtonShow = true;
+                    //vm.addUserButtonShow = true;
                     vm.newUsername = "";
                     vm.newPassword = "";
 
