@@ -16,23 +16,23 @@
 
         vm.showResult = false;
 
-        $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php/all')
+        $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php/all') //viene presa la lista di survey dal database
             .then(function (response) {
                 var input = JSON.parse(response.data);
                 vm.surveys = input.records;
             });
 
-        vm.deleteSurvey = function(id, ev) {
+        vm.deleteSurvey = function(id, ev) { //questa funzione viene eseguita quando si preme il tasto per cancellare le survey
 
-            var confirm = $mdDialog.confirm()
+            var confirm = $mdDialog.confirm() //viene lanciato una dialog per avere conferma della cancellazione
                 .title('Are you sure you want to delete this survey?')
                 .targetEvent(ev)
                 .ok('Delete')
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
-                //$scope.status = 'You decided to get rid of your debt.';
-                $http({
+
+                $http({ //viene richiesta la cancellazione della survey
                     method: 'DELETE',
                     url: 'http://'+SettingsService.serverAddress+'/mydb/surveys.php/'+id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -43,7 +43,7 @@
 
                         var obj2 = {surv_id:id,type:"survid"};
                         var param2 = JSON.stringify(obj2);
-                        $http({
+                        $http({ //vengono cancellati anche tutte le assegnazioni degli utenti relative alla survey cancellata
                             method: 'DELETE',
                             url: 'http://'+SettingsService.serverAddress+'/mydb/assignments.php/'+param2,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -52,7 +52,7 @@
                                 $route.reload();
 
                             });
-                        $http({
+                        $http({ //vengono eliminate anche le risposte alla survey cancellata
                             method: 'DELETE',
                             url: 'http://'+SettingsService.serverAddress+'/mydb/answers.php/'+param2,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -75,9 +75,9 @@
 
         vm.selectedSurvName = '';
         vm.selectedAnswers = [];
-        vm.thisResultSurvey;
-        vm.showResults = function (surv) {
-            $http.get('http://'+SettingsService.serverAddress+'/mydb/answers.php')
+        vm.thisResultSurvey; //questa variabile conterrà i dati della survey che si è scelto di visualizzare i risultati ricevuti
+        vm.showResults = function (surv) { //questa funzione viene eseguita quanbo si preme il bottone per visualizzare i risultati di una survey
+            $http.get('http://'+SettingsService.serverAddress+'/mydb/answers.php') //vengono prese tutte le risposte alla survey e poi vengono filtrate solo quelle relative alla surbey selezionata
                 .then(function (response) {
                     var input = JSON.parse(response.data);
                     compiledSurveys = input.records;
@@ -90,9 +90,9 @@
                 });
         }
 
-        vm.questionsView;
+        vm.questionsView; //questa variabile conterrà i dati della survey che si è scelto di visualizzare le domande contenute
         vm.showQuestion = false;
-        vm.showQuestions = function (surv) {
+        vm.showQuestions = function (surv) { //questa funzione viene eseguita quando si preme il bottone per visualizzare le domande di una survey
             vm.questionsView = surv;
             vm.showQuestion = true;
         }
@@ -100,7 +100,7 @@
         vm.showAnswerForm = false;
 
 
-        vm.showThisResult = function(ans) {
+        vm.showThisResult = function(ans) { //questa funzione viene eseguita quando si preme il bottone per visualizzare il dettaglio di un risultato di una survey
             vm.showAnswerForm = true;
             vm.thisResult = ans;
 
