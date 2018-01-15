@@ -1,19 +1,17 @@
-/**
- * Created by Antonio on 09/10/2017.
- */
-'use strict';
 
+'use strict';
+//questo è il controller che gestisce la pagina /users (users.html)
 (function () {
 
     angular.module('myApp.users', ['ngRoute'])
         .controller('usersCtrl', usersCtrl);
-    usersCtrl.$inject = ['$scope','$http','$route','SettingsService','$mdDialog'];
+    usersCtrl.$inject = ['$http','$route','SettingsService','$mdDialog'];
 
-    function usersCtrl($scope,$http,$route,SettingsService,$mdDialog) {
+    function usersCtrl($http,$route,SettingsService,$mdDialog) {
 
         var vm = this;
 
-        vm.users = [];
+        vm.users = []; //questo array conterrà la liste degli utenti presa dal database
         vm.addUserButtonShow = true;
         vm.newUsername = '';
         vm.newPassword = '';
@@ -21,24 +19,24 @@
 
         vm.message = '';
 
-        $http.get('http://'+SettingsService.serverAddress+'/mydb/users.php')
+        $http.get('http://'+SettingsService.serverAddress+'/mydb/users.php') //con questa richiesta get vengono presi tutti gli utenti (non admin) presenti sul db
             .then(function (response) {
                 var input = JSON.parse(response.data);
-                vm.users = input.records;
+                vm.users = input.records; //e vengono messi nell'array vm.users
             });
 
-        vm.addUser = function () {
-            if(vm.newPassword == vm.rePsw && vm.newPassword!='') {
+        vm.addUser = function () { //questa è la funzione che viene eseguita quando si aggiunge un utente
+            if(vm.newPassword == vm.rePsw && vm.newPassword!='') { //si ricorda che le variabili che contengono la password o l'username, anche se all'inizio sono state dichiarate come stringa vuota, vengono scritte in runtime a seconda di quello che si scrive sui text box grazie alla direttiva ng-model
                 vm.message = '';
                 var isPresent = false;
                 for(var i=0; i<vm.users.length; i++) {
-                    if(vm.users[i].username == vm.newUsername) {
+                    if(vm.users[i].username == vm.newUsername) { //viene controllato se il nome utente è già presente
                         isPresent = true;
                         break;
                     }
                 }
                 if(!isPresent) {
-                    var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword,admin:0});
+                    var param = JSON.stringify({username:vm.newUsername,password:vm.newPassword,admin:0}); //se l'utente non è presente viene aggiunto al db con una richiesta post a users.php
 
                     $http({
                         method: 'POST',
@@ -51,7 +49,6 @@
                             $route.reload();
                         });
                 } else {
-                    //vm.addUserButtonShow = true;
                     vm.newUsername = "";
                     vm.newPassword = "";
 
@@ -65,16 +62,16 @@
 
         };
 
-        vm.deleteUser = function (id,ev) {
+        vm.deleteUser = function (id,ev) { //questa è la funzione che viene eseguita quando si cancella un utente
 
-            var confirm = $mdDialog.confirm()
+            var confirm = $mdDialog.confirm() //comparirà un dialog per confermare se si è sicuri di voler cancellare l'utente selezionato
                 .title('Are you sure you want to delete this user?')
                 .targetEvent(ev)
                 .ok('Delete')
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
-                $http({
+                $http({                //viene fatta una richiesta delete a users.php in cui gli si passa l'id nell'url per cancellare l'utente
                     method: 'DELETE',
                     url: 'http://'+SettingsService.serverAddress+'/mydb/users.php/'+id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -90,13 +87,13 @@
                         })
                             .then(function (response) {
 
-                                $route.reload();
+                                $route.reload(); //questa funzione serve a ricaricare la pagina in modo che si aggiorni senza l'utente che è stato cancellato
                             });
                     });
 
 
             }, function() {
-                //$scope.status = 'You decided to keep your debt.';
+
             });
 
 

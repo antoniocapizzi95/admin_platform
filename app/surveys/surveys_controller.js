@@ -1,15 +1,13 @@
-/**
- * Created by Antonio on 09/10/2017.
- */
-'use strict';
 
+'use strict';
+//questo è il controller che gestisce la pagina /surveys (surveys.html)
 (function () {
 
     angular.module('myApp.surveys', [])
         .controller('surveysCtrl', surveysCtrl);
-    surveysCtrl.$inject = ['$scope','$http','$route','$mdDialog','SettingsService'];
+    surveysCtrl.$inject = ['$http','$route','$mdDialog','SettingsService'];
 
-    function surveysCtrl($scope,$http,$route,$mdDialog,SettingsService) {
+    function surveysCtrl($http,$route,$mdDialog,SettingsService) {
 
         var vm= this;
 
@@ -68,7 +66,7 @@
 
                     });
             }, function() {
-                //$scope.status = 'You decided to keep your debt.';
+
             });
 
 
@@ -109,9 +107,9 @@
 
         }
 
-        vm.deleteThisResult= function (id,ev) {
+        vm.deleteThisResult= function (id,ev) { //questa funzione viene eseguita quando si vuole cancellare un risultato di una survey
 
-            var confirm = $mdDialog.confirm()
+            var confirm = $mdDialog.confirm() //comparirà un dialog che chiederà conferma
                 .title('Are you sure you want to delete this result?')
                 .targetEvent(ev)
                 .ok('Delete')
@@ -134,7 +132,7 @@
 
 
             }, function() {
-                //$scope.status = 'You decided to keep your debt.';
+
             });
 
 
@@ -142,8 +140,8 @@
         }
 
         var selectSurveyAssignUsers;
-        vm.assignUsers = function(ev,surv_id) {
-            //FormService.setCurrDestArr(scope.question.elements);
+        vm.assignUsers = function(ev,surv_id) { //questa funzione viene eseguita quando si clicca sul bottone "assign users" per assegnare gli utenti a una survey
+
             selectSurveyAssignUsers = surv_id;
             $mdDialog.show({
                 controller: assignUsersDialogController,
@@ -153,18 +151,18 @@
                 clickOutsideToClose:true
             })
                 .then(function() {
-                    //$scope.status = 'You said the information was "' + answer + '".';
+
 
                 }, function() {
-                    //$scope.status = 'You cancelled the dialog.';
+
                 });
         };
 
-        function assignUsersDialogController($scope, $mdDialog, $route, SettingsService) {
+        function assignUsersDialogController($scope, SettingsService) { //questa funzione funge da controller per il dialog contenuto in assignmentsDialog.html, ovvero quello che permette di assegnare gli utenti alle survey
             $scope.users = [];
             $scope.assignedUsers = [];
 
-            $scope.getAssignedUsers =function() {
+            $scope.getAssignedUsers =function() { //questa funzione prende tutte le assegnazioni presenti nella tabella "assignments" del db, e seleziona i soli utenti assegnati alla survey selezionata
                 $http.get('http://'+SettingsService.serverAddress+'/mydb/users.php')
                     .then(function (response) {
                         var input = JSON.parse(response.data);
@@ -198,7 +196,7 @@
             $scope.getAssignedUsers();
 
 
-            $scope.deleteAssegnation = function(id) {
+            $scope.deleteAssegnation = function(id) { //questa è la funzione che viene eseguita quando si preme il bottone per cancellare un utente assegnato a una survey (per cancellare l'assegnazione)
                 var obj = {us_id: id,surv_id:selectSurveyAssignUsers,type:"simple"};
                 var param = JSON.stringify(obj);
                 $http({
@@ -213,7 +211,7 @@
 
             };
 
-            $scope.addAssegnation = function (id) {
+            $scope.addAssegnation = function (id) { //questa è la funzione che viene eseguita quando si aggiunge un utente da assegnare alla survey
                 var isPresent = false;
                 for (var i=0; i < $scope.assignedUsers.length; i++) {
                     if ($scope.assignedUsers[i].ID == id)

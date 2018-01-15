@@ -1,8 +1,6 @@
-/**
- * Created by Antonio on 09/10/2017.
- */
-'use strict';
 
+'use strict';
+//questo è il controller che gestisce la pagina /settings (settings.html)
 (function () {
 
     angular.module('myApp.settings', [])
@@ -13,11 +11,11 @@
 
         var vm = this;
 
-        vm.adminUsername = SettingsService.adminUsername;
+        vm.adminUsername = SettingsService.adminUsername; //username e password dell'admin vengono presi dal servizio SettingsService contenuto in app/components/settingsService.js
         vm.serverAddress = SettingsService.serverAddress;
         vm.message = '';
 
-        vm.logout = function () {
+        vm.logout = function () { //questa è la funzione che viene eseguita quando si clicca sul bottone logout
             SettingsService.adminUsername = '';
             SettingsService.adminPassword = '';
             SettingsService.id = undefined;
@@ -25,9 +23,8 @@
             $location.path('/login');
         }
 
-        vm.edit = function() {
-            /*SettingsService.adminUsername = vm.adminUsername;
-            SettingsService.adminPassword = vm.adminPassword;*/
+        vm.edit = function() { //questa è la funzione che viene eseguita quando si preme il bottone edit che serve a cambiare l'indirizzo del server
+
 
             $http.get('http://'+vm.serverAddress+'/mydb/users.php')
                 .success(function (response) {

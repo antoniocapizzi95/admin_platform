@@ -1,15 +1,9 @@
+<!--In questo file html è contenuta la struttura della pagina Settings-->
 <h2 class="md-display-1" layout-padding>Settings</h2>
 <div layout="row" layout-padding>
-    <md-card layout="column" layout-padding>
-        <!--<md-input-container>
-            <label>Admin Username</label>
-            <input name="adminUsername" ng-model="Settings.adminUsername" required>
-        </md-input-container>
-        <md-input-container>
-            <label>Admin Password</label>
-            <input name="adminPassword" ng-model="Settings.adminPassword" required>
-        </md-input-container>-->
-        <md-input-container>
+    <md-card layout="column" layout-padding> <!--La direttiva md-card genera una card (praticamente un rettangolo) che conterrà i text-field (in questo caso) in stile Material Design-->
+
+        <md-input-container> <!--Da qua è possibile cambiare l'indirizzo del server-->
             <label>Server Address</label>
             <input name="serverAddress" ng-model="Settings.serverAddress" required>
         </md-input-container>
@@ -19,7 +13,7 @@
         </div>
 
     </md-card>
-    <md-card layout="column" layout-padding >
+    <md-card layout="column" layout-padding > <!--Da qua è possibile vedere quale account utente è connesso, ed eventualmente è possibile effettuare il logout-->
         <md-input-container>
             <label>Admin Logged</label>
             <input name="adminUsername" ng-model="Settings.adminUsername" disabled>

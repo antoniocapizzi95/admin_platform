@@ -1,13 +1,14 @@
-<md-dialog layout="column" layout-padding>
+<!--In questo file html c'è la struttura della finestra che compare quando si vogliono assegnare degli utenti a una survey-->
+<md-dialog layout="column" layout-padding> <!--la direttiva md-dialog serve a generare un popup in stile Material Design-->
     <h3 class="md-headline">
         Assigned users
     </h3>
 
-    <md-select placeholder="Add an user" ng-model="users"  style="min-width: 200px;">
+    <md-select placeholder="Add an user" ng-model="users"  style="min-width: 200px;"> <!--Questo è il menu a tendina da cui è possibile selezionare gli utenti-->
         <md-option ng-value="user" ng-click="addAssegnation(user.ID)" ng-repeat="user in users">{{user.username}}</md-option>
     </md-select>
 
-    <md-card ng-repeat="us in assignedUsers">
+    <md-card ng-repeat="us in assignedUsers"> <!--Da qui è possibile vedere gli utenti assegnati alla survey selezionata-->
         <b>{{us.username}}</b>
         <md-button class="md-raised font-size-button" ng-click="deleteAssegnation(us.ID)">
             Delete

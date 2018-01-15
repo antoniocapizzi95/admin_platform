@@ -1,30 +1,31 @@
-<h2 class="md-display-1" layout-padding>Surveys</h2>
+<!--In questo file html è contenuta la struttura della pagina Manage Surveys-->
+<h2 class="md-display-1" layout-padding>Manage Surveys</h2>
 <div layout="column" ng-hide="Surveys.showResult || Surveys.showQuestion" layout-padding>
     <div layout="row" layout-align="start center">
-        <md-button class="md-raised" goto="/newSurvey">
+        <md-button class="md-raised" goto="/newSurvey"> <!--Premendo questo bottone si passa alla pagina da cui si creano le nuove survey-->
             New Survey
         </md-button>
     </div>
 
-    <div class="md-title" layout-padding>Surveys list:</div>
+    <div class="md-title" layout-padding>Surveys list:</div> <!--Qua c'è la lista delle survey-->
     <div layout="row" layout-wrap>
-        <md-card ng-repeat="surv in Surveys.surveys | orderBy: 'surv_name'" layout="column" layout-padding>
-            <b>{{surv.surv_name}}</b>
+        <md-card ng-repeat="surv in Surveys.surveys | orderBy: 'surv_name'" layout="column" layout-padding> <!--la direttiva ng-reapeat permette di far comparire più volte il div in cui è inserita, tante volte tanto quanti sono gli elementi contenuti nell'array tra parentesi-->
+            <b>{{surv.surv_name}}</b>  <!--In questo caso l'array tra parentesi è Surveys.surveys, gli elementi dell'array saranno reperibili come surv-->
             <div layout="row">
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,$event)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.deleteSurvey(surv.ID,$event)"> <!--con questo bottone è possibile cancellare la survey selezionata-->
                         Delete
                     </md-button>
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.ID)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.assignUsers($event,surv.ID)"> <!--Questo bottone avvia il dialog che permette di assegnare gli utenti alla survey selezionata-->
                         Assign Users
                     </md-button>
                 </div>
 
                 <div layout="column">
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestions(surv)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestions(surv)"> <!--Premendo questo bottone è possibile vedere le domande contenute nella survey-->
                         Show Questions
                     </md-button>
-                    <md-button class="md-raised font-size-button" ng-click="Surveys.showResults(surv)">
+                    <md-button class="md-raised font-size-button" ng-click="Surveys.showResults(surv)"> <!--Premendo questo bottone è possibile vedere tutte le risposte al sondaggio-->
                         Show Results
                     </md-button>
                 </div>
@@ -35,7 +36,7 @@
     </div>
 
 </div>
-<div ng-show="Surveys.showResult" layout="column" layout-padding>
+<div ng-show="Surveys.showResult" layout="column" layout-padding> <!--Questa è la parte che compare quando si vogliono vedere i risultati delle survey, sparisce la lista delle survey e compare questa parte-->
     <div layout="row" layout-align="start center">
         <md-button class="md-raised font-size-button" ng-click="Surveys.showResult = false">Back</md-button>
     </div>
@@ -67,13 +68,14 @@
     </md-card>
 </div>
 
-<div ng-show="Surveys.showQuestion" layout="column" layout-padding>
+<div ng-show="Surveys.showQuestion" layout="column" layout-padding> <!--Questa è la parte che compare quando si vogliono le domande contenute nella survey, sparisce la lista delle survey e compare questa parte-->
 
     <div layout="row" layout-align="start center">
         <md-button class="md-raised font-size-button" ng-click="Surveys.showQuestion = false">Back</md-button>
     </div>
 
     <div class="md-headline">Questions of: <b style="font-size:24px">{{Surveys.questionsView.surv_name}}</b></div>
+    <div class="md-subhead">Description: <b style="font-size:16px">{{Surveys.questionsView.decription}}</b></div>
 
 
 

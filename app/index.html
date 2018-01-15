@@ -1,3 +1,4 @@
+<!--In questo file html c'è la struttura base dell'interfaccia grafica del progetto e vengono importati i vari file js e css utili al progetto-->
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -14,45 +15,41 @@
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
-  <!--<link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
-  <script src="node_modules/angular-material/angular-material.js"></script>-->
+
   <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"> <!-- questo è il file css che introduce le classi del "Material Design"-->
 </head>
-<body ng-app="myApp" layout="column" ng-controller="MainCtrl as Main">
-  <!--<ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-  </ul>-->
+<body ng-app="myApp" layout="column" ng-controller="MainCtrl as Main">  <!--I vari layout="row" o layout="column" servono a definire se i div figli saranno posizionati in riga o in colonna-->
+
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div layout="row" layout-align="start stretch" flex>
+  <div layout="row" layout-align="start stretch" flex> <!--Le direttive ng-show o ng-hide servono a far apparire o a nascondere il div in cui sono applicate in base al valore della variabile scritta tra virgolette (deve essere booleana)-->
 
     <md-sidenav
             class="md-sidenav-left"
             md-component-id="left"
             md-is-locked-open="true"
-            md-whiteframe="4" ng-show="Main.service.sidenav">
+            md-whiteframe="4" ng-show="Main.service.sidenav"> <!--Questa è la barra laterale in cui ci sono i bottone che permettono di navigare tra le pagine dell'applicazione-->
 
-      <md-toolbar class="md-theme-indigo" layout-padding>
-        <div class="md-display-1">Surveys App</div>
-        <div class="md-title">Admin Platform</div>
-      </md-toolbar>
+        <md-toolbar class="md-theme-indigo" layout-padding> <!--La direttiva layout-padding assegna al div un padding di 8 px-->
+          <div class="md-display-1">Surveys App</div>
+          <div class="md-title">Admin Platform</div>
+        </md-toolbar>
 
         <md-toolbar>
           <h1 class="md-toolbar-tools">Menu</h1>
         </md-toolbar>
         <md-content layout="column" layout-padding>
-          <md-button class="md-primary" goto="/surveys">
+          <md-button class="md-primary" goto="/surveys"> <!--Questi sono i bottoni che permettono di navigare tra le pagine dell'applicazione-->
             Manage Surveys
           </md-button>
-          <md-button class="md-primary" goto="/users">
+          <md-button class="md-primary" goto="/users"> <!--La direttiva goto è stata creata (si trova nel file components/directives.js) per passare alla pagina indicata tra parentesi quando si clicca sul bottone-->
             Manage Users
           </md-button>
-          <md-button class="md-primary" goto="/settings">
+          <md-button class="md-primary" goto="/settings"> <!--La direttiva md-button serve per genere dare lo stile "Material Design" ai bottoni dell'applicazione-->
             Settings
           </md-button>
         </md-content>
@@ -60,11 +57,8 @@
     </md-sidenav>
 
     <div layout="column" flex>
-      <md-toolbar layout="row" ng-hide="Main.service.sidenav"  layout-padding>
+      <md-toolbar layout="row" ng-hide="Main.service.sidenav"  layout-padding> <!--Questa è l'intestazione della pagina che compare in fase di login, una volta effettuato il login, questa intestazione scompare e compare la md-sidenav-->
         <div layout="column">
-          <!--<div layout="column" layout-padding style="background-color: #4B0082" >
-
-          </div>-->
           <div class="md-display-2">Surveys App</div>
           <div class="md-headline">Admin Platform</div>
 
@@ -72,7 +66,7 @@
 
       </md-toolbar>
 
-      <div ng-view></div>
+      <div ng-view></div> <!--In questo div la direttiva ng-view indica che in runtime, questo div conterrà le varie pagine dell'applicazione-->
     </div>
 
 
@@ -80,12 +74,7 @@
   </div>
 
 
-  <!--<div>Angular seed app: v<span app-version></span></div>-->
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <!--<script src="bower_components/angular/angular.js"></script>-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>

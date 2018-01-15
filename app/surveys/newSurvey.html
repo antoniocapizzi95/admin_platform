@@ -1,6 +1,7 @@
+<!--Questo file html contiene la struttura della pagina da cui si creano le survey-->
 <h2 class="md-diplay-1" layout-padding>Create new Survey</h2>
 <div layout="column" layout-padding>
-    <div layout="column">
+    <div layout="column"> <!--Qui vengono richieste le informazioni di base( nome survey e descrizione)-->
         <md-input-container>
             <label>Survey Name</label>
             <input name="answer" ng-model="NewSurvey.surveyName" required>
@@ -15,7 +16,7 @@
             Add a question
         </md-button>
     </div>
-
+                                                                        <!--Da qua si aggiungono le domande-->
     <div layout="row" ng-hide="NewSurvey.newQuestionButtonFlag">
         <md-input-container>
             <label>Question</label>
@@ -32,7 +33,7 @@
             <md-card layout="column" layout-padding>
                 <div class="md-title">Question {{$index + 1}}: {{que}}</div>
                 <div layout="row" layout-align="center center">
-                    <md-button class="md-raised font-size-button" ng-click="NewSurvey.deleteQuestion($index)">Delete</md-button>
+                    <md-button class="md-raised font-size-button" ng-click="NewSurvey.deleteQuestion($index)">Delete</md-button> <!--Qui viene prodotta la lista delle domande aggiunte, all'occorrenza si possono eliminare-->
                 </div>
 
             </md-card>
@@ -45,7 +46,7 @@
     <div style="color:red">{{NewSurvey.message}}</div>
     <div layout="row">
         <md-button class="md-raised font-size-button" goto="/surveys">Cancel</md-button>
-        <md-button class="md-raised font-size-button" ng-click="NewSurvey.confirm()">Confirm</md-button>
+        <md-button class="md-raised font-size-button" ng-click="NewSurvey.confirm()">Confirm</md-button> <!--Qua ci sono i bottoni con la quale è possibile confermare o no la survey appena creata-->
     </div>
 
 </div>

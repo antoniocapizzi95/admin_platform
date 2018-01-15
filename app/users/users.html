@@ -1,10 +1,11 @@
-<h2 class="md-display-1" layout-padding>Users</h2>
+<!--Questo file html contiene la struttura della pagina da cui si gestiscono gli utenti-->
+<h2 class="md-display-1" layout-padding>Manage Users</h2>
 <div layout="column" layout-padding>
-    <div layout="row">
+    <div layout="row"> <!--questa è la struttura della parte da cui si creano gli utenti-->
         <md-button class="md-raised" ng-click="Users.addUserButtonShow = false" ng-show="Users.addUserButtonShow">Add User</md-button>
         <div layout="column" ng-hide="Users.addUserButtonShow">
             <div layout="row">
-                <md-input-container>
+                <md-input-container> <!--La direttiva md-input-container serve a dare lo stile "Material Design" ai text field-->
                     <label>Username</label>
                     <input name="username" ng-model="Users.newUsername" required >
                 </md-input-container>
@@ -24,7 +25,7 @@
         </div>
 
     </div>
-    <div layout="column">
+    <div layout="column"> <!--Questa è la struttura della parte da cui si vede la lista degli utenti-->
         <div class="md-title" layout-padding>Users list:</div>
         <div layout="row" layout-wrap>
             <md-card layout="column" layout-padding ng-repeat="usr in Users.users | orderBy: 'username'">

@@ -1,3 +1,4 @@
+//in questo file js è presente la dichiarazione del servizio SettingsService che contiene tutte le variabili che devono essere a disposizione di tutti i controller
 angular.module('myApp')
     .factory('SettingsService', function () {
 

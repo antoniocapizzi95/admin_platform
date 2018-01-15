@@ -1,8 +1,10 @@
+<!--In questo file html è contenuta la struttura della pagina di login-->
 <div layout="row" layout-align="center center" layout-padding flex>
     <div layout="column" flex>
-        <md-input-container>
+        <md-input-container> <!--La direttiva md-input-container serve a dare lo stile "Material Design" ai text field-->
             <label>Server Address</label>
-            <input name="address" ng-model="Login.address" required>
+            <input name="address" ng-model="Login.address" required>  <!--I vari ng-model creano un collegamento tra l'input e la variabile scritta tra virgolette se si modifica il contenuto
+                                                                           degli input dall'interfaccia grafica, si modifica anche il contenuto della variabile nel controller-->
         </md-input-container>
         <md-input-container>
             <label>Username</label>
@@ -14,7 +16,7 @@
         </md-input-container>
         <div style="color:red">{{Login.message}}</div>
         <div layout="row" layout-align="center center">
-            <md-button class="md-raised" ng-click="Login.login()">Login</md-button>
+            <md-button class="md-raised" ng-click="Login.login()">Login</md-button> <!--La direttiva ng-click permette di eseguire la funzione indicata tra parentesi quando si clicca sul bottone in cui è inserita-->
         </div>
 
 
