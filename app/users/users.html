@@ -4,6 +4,7 @@
     <div layout="row"> <!--questa è la struttura della parte da cui si creano gli utenti-->
         <md-button class="md-raised" ng-click="Users.addUserButtonShow = false" ng-show="Users.addUserButtonShow">Add User</md-button>
         <div layout="column" ng-hide="Users.addUserButtonShow">
+            <div style="font-size:9px">Create new user account</div>
             <div layout="row">
                 <md-input-container> <!--La direttiva md-input-container serve a dare lo stile "Material Design" ai text field-->
                     <label>Username</label>
@@ -25,12 +26,42 @@
         </div>
 
     </div>
+
+    <div layout="row"> <!--questa è la struttura della parte da cui si modificano gli utenti-->
+        <div layout="column" ng-show="Users.showEditUser">
+            <div style="font-size:9px">Edit an user account</div>
+            <div layout="row">
+                <md-input-container>
+                    <label>Username</label>
+                    <input name="username" ng-model="Users.editUsername" required >
+                </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="Users.editPassword" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Retype Password</label>
+                    <input name="re-password" type="password" ng-model="Users.rePsw" required>
+                </md-input-container>
+                <md-button ng-click="Users.confirmEditUser()">Edit</md-button>
+                <md-button ng-click="Users.cancelEdit()">Cancel</md-button>
+
+            </div>
+            <div>{{Users.message}}</div>
+        </div>
+
+    </div>
+
     <div layout="column"> <!--Questa è la struttura della parte da cui si vede la lista degli utenti-->
         <div class="md-title" layout-padding>Users list:</div>
         <div layout="row" layout-wrap>
             <md-card layout="column" layout-padding ng-repeat="usr in Users.users | orderBy: 'username'">
                 <h3 class="md-subhead">{{usr.username}}</h3>
-                <md-button class="md-raised font-size-button" ng-click="Users.deleteUser(usr.ID,$event)">Delete</md-button>
+                <div layout="row">
+                    <md-button class="md-raised font-size-button" ng-click="Users.editUser(usr)">Edit</md-button>
+                    <md-button class="md-raised font-size-button" ng-click="Users.deleteUser(usr.ID,$event)">Delete</md-button>
+                </div>
+
             </md-card>
         </div>
     </div>

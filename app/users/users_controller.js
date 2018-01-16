@@ -1,4 +1,3 @@
-
 'use strict';
 //questo è il controller che gestisce la pagina /users (users.html)
 (function () {
@@ -62,6 +61,12 @@
 
         };
 
+        vm.cancelAdd = function() {
+            vm.addUserButtonShow = true;
+            vm.newUsername = "";
+            vm.newPassword = "";
+        }
+
         vm.deleteUser = function (id,ev) { //questa è la funzione che viene eseguita quando si cancella un utente
 
             var confirm = $mdDialog.confirm() //comparirà un dialog per confermare se si è sicuri di voler cancellare l'utente selezionato
@@ -97,6 +102,57 @@
             });
 
 
+        }
+
+        vm.showEditUser = false;
+        vm.editUsername = '';
+        vm.editPassword = '';
+        var editID;
+        vm.editUser = function(usr) { //questa è la funzione che viene seguita quando si preme il tasto per modificare un utente
+            vm.showEditUser = true;
+            vm.editUsername = usr.username;
+            vm.editPassword = usr.password;
+            editID = usr.ID;
+        }
+
+        vm.confirmEditUser = function() { //questa funzione viene eseguita quando si preme il bottone per confermare la modifica di un utente
+
+            if(vm.editPassword == vm.rePsw && vm.editPassword!='') {
+                vm.message = '';
+                var isPresent = false;
+                for(var i=0; i<vm.users.length; i++) {
+                    if(vm.users[i].username == vm.newUsername) { //viene controllato se il nome utente è già presente
+                        isPresent = true;
+                        break;
+                    }
+                }
+                if(!isPresent) {
+                    var obj = {id:editID, username: vm.editUsername, password: vm.editPassword};
+                    var param = JSON.stringify(obj);
+
+                    $http({
+                        method: 'PUT',
+                        url: 'http://'+SettingsService.serverAddress+'/mydb/users.php/'+param,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
+                        .then(function (response) {
+                            $route.reload();
+                        });
+                } else {
+                    vm.editUsername = "";
+                    vm.editPassword = "";
+
+                    vm.message = "This user already exist";
+                }
+            } else {
+                vm.message = 'Password incorrect or empty';
+            }
+        }
+        vm.cancelEdit = function() {
+            vm.showEditUser = false;
+            vm.editUsername = '';
+            vm.editPassword = '';
+            vm.rePsw = '';
         }
 
 
