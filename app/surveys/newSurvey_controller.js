@@ -31,13 +31,13 @@
             if(vm.questions.length>0 && vm.surveyName != "" && vm.description !="") { //viene verificato che non manchino le informazioni obbligatorie
 
 
-                $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php') //vengono prese le survey dal db per controllare che la survey creata non sia già presente sul db
+                $http.get('http://'+SettingsService.serverAddress+'/mydb/surveys.php/all') //vengono prese le survey dal db per controllare che la survey creata non sia già presente sul db
                     .then(function (response) {
                         var input = JSON.parse(response.data);
                         var surveys = input.records;
                         var flag = false;
                         for(var i=0; i<surveys.length;i++) {
-                            if(vm.surveyName == surveys[i].object.name) {
+                            if(vm.surveyName == surveys[i].surv_name) {
                                 flag = true;
                                 break;
                             }
